@@ -14,10 +14,11 @@ class Post(Base):
     title = Column(String(50))
     content = Column(String(100))
     user_id = Column(Integer)
-    
+
 
 class Drone(Base):
-    dronetype = Column(String(50))
+    __tablename__ = 'dronedata'
+    dronetype = Column(String(50), primary_key = True, index= True)
     target_longitude = Column(Integer)
     target_latitude = Column(Float)
     radius_km = Column(Float)
