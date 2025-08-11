@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, Integer, String
+from sqlalchemy import Boolean, Column, Integer, String, Float, Time
 from database import Base
 
 class User(Base):
@@ -14,3 +14,11 @@ class Post(Base):
     title = Column(String(50))
     content = Column(String(100))
     user_id = Column(Integer)
+
+class Drone(Base):
+    dronetype = Column(String(50))
+    target_longitude = Column(Integer)
+    target_latitude = Column(Float)
+    radius_km = Column(Float)
+    altitude_meters = Column(Integer)
+    duration_minutes = Column(Time)

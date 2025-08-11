@@ -16,6 +16,14 @@ class PostBase(BaseModel):
 class UserBase(BaseModel):
     username: str
 
+class DroneBase(BaseModel):
+    dronetype: str
+    target_longitude: float
+    target_latitude: float
+    radius_km : int
+    altitude_meters : int
+    duration_minutes: int
+
 def get_db():
     db = SessionLocal()
     try:
@@ -40,6 +48,11 @@ async def delete_post(post_id: int, db: db_dependency):
     db.delete(db_post)
     db.commit()
 
+@app.post("/drone_data", status_code=status.HTTP_201_CREATED)
+async def create_drone_data(data: DroneBase, db: db_dependency):
+    db_drone = models.Drone(**data.dict())
+    db.add(db_drone)
+    db.commit()
 
 @app.get("/posts/{post_id}", status_code=status.HTTP_200_OK)
 async def get_post(post_id: int, db:db_dependency):
